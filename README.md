@@ -1,1 +1,1 @@
-#Firebase Authentication Starter for React Native
+##Firebase Authentication Starter for React Native
