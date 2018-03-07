@@ -7,7 +7,7 @@ import firebaseConfig from "./config/keys";
 import { connect } from "react-redux";
 //** ----- **//
 import LoginForm from "./components/forms/LoginForm";
-
+import { Container } from "native-base";
 let firebaseApp;
 
 class Main extends React.Component {
@@ -17,21 +17,18 @@ class Main extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <Container style={styles.container}>
         <LoginForm
           onLoginSubmit={() => this.setState({ showFormReview: true })}
         />
-      </View>
+      </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+    padding: 10
   }
 });
 

@@ -1,5 +1,4 @@
 //Config keys go here
-import * as firebase from "firebase";
 
 // Initialize Firebase
 const firebaseConfig = {
