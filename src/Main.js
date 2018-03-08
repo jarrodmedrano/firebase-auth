@@ -20,9 +20,7 @@ class Main extends React.Component {
   render() {
     return (
       <Container style={styles.container}>
-        <LoginForm
-          onLoginSubmit={() => this.setState({ showFormReview: true })}
-        />
+        <LoginForm />
       </Container>
     );
   }

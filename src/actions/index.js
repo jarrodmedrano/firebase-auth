@@ -9,17 +9,22 @@ import {
 import firebase from "firebase";
 
 export const loginUser = () => async dispatch => {
+  console.log("test");
   const res = await firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then(this.onLoginSuccess.bind(this))
+    .then(dispatch({ type: LOGIN_USER_SUCCESS, payload: res.data }))
     .catch(() => {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(this.onLoginSuccess.bind(this))
-        .catch(this.onLoginFail.bind(this));
+      dispatch({ type: LOGIN_USER_FAIL, payload: error });
     });
+};
+
+export const createUser = () => async dispatch => {
+  const res = await firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(dispatch({ type: CREATE_USER_SUCCESS, payload: res.data }))
+    .catch(dispatch({ type: CREATE_USER_FAIL, payload: error }));
 };
 
 export const loginSuccess = resp => {
@@ -48,17 +53,4 @@ export const createUserFail = error => {
     type: CREATE_USER_FAIL,
     error
   };
-};
-
-const auth = (state = [], action) => {
-  switch (action.type) {
-    case CREATE_USER_SUCCESS:
-      const { user: { uid: userId } } = action;
-      return { ...state, loggedIn: true, userId };
-    case CREATE_USER_FAIL:
-      const { error } = action;
-      return { ...state, loggedIn: false, error };
-    default:
-      return state;
-  }
 };

@@ -14,7 +14,8 @@ import {
   Body,
   Form
 } from "native-base";
-const SCREEN_WIDTH = Dimensions.get("window").width;
+import { connect } from "react-redux";
+import * as actions from "../../actions";
 
 class LoginForm extends Component {
   renderFields() {
@@ -31,7 +32,19 @@ class LoginForm extends Component {
     });
   }
 
+  submit = values => {
+    this.props.handleSubmit(this.props.onLoginSubmit(values));
+  };
+
   render() {
+    const {
+      handleSubmit,
+      submitting,
+      history,
+      formValues,
+      loginUser
+    } = this.props;
+
     return (
       <Container>
         <Content>
@@ -46,7 +59,7 @@ class LoginForm extends Component {
                   <Button
                     block
                     primary
-                    onPress={this.props.handleSubmit(this.props.onLoginSubmit)}
+                    onPress={handleSubmit(() => loginUser(formValues))}
                     style={styles.button}
                   >
                     <Text>Submit Now</Text>
@@ -80,6 +93,8 @@ const styles = StyleSheet.create({
     marginTop: 10
   }
 });
+
+LoginForm = connect(null, actions)(LoginForm);
 
 export default reduxForm({
   validate,
